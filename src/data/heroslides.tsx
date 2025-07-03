@@ -869,19 +869,24 @@ export const slides21 = [
 
 export const slides22 = [
   {
-    imgSrc: "/images/slider/DSC_8741-first.JPG",
-    alt: "slider-cosmetic",
-    title: "Inspired by David Beckham",
-  },
-  {
-    imgSrc: "/images/slider/DSC_9638-2nd.JPG",
-    alt: "slider-cosmetic",
-    title: "Inspired by Imperial Valley",
-  },
-  {
-    imgSrc: "/images/slider/DSC02754-3rd.JPG",
+    imgSrc: "/images/slider/new1.jpg",
     alt: "slider-cosmetic",
     title: "Inspired by Creed Aventus",
+  },
+  {
+    imgSrc: "/images/slider/new2.jpg",
+    alt: "slider-cosmetic",
+    title: "Inspired by Open Royal",
+  },
+  {
+    imgSrc: "/images/slider/new3.jpg",
+    alt: "slider-cosmetic",
+    title: "Inspired by Chanel Chance",
+  },
+  {
+    imgSrc: "/images/slider/new4.jpg",
+    alt: "slider-cosmetic",
+    title: "Inspired by David Beckham",
   },
 ];
 
