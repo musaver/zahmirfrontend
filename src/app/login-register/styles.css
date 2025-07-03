@@ -1,0 +1,198 @@
+/* Login Page Layout */
+.tf-grid-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+@media (min-width: 992px) {
+  .tf-grid-layout.lg-col-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.tf-login-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+/* Form Styles */
+.tf-login-form {
+  background: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+}
+
+.tf-login-content {
+  padding: 40px;
+}
+
+/* Button Styles */
+.tf-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.tf-btn.btn-line {
+  background: transparent;
+  border: 1px solid #e0e0e0;
+  color: #333;
+}
+
+.tf-btn.btn-fill {
+  background: var(--primary-color, #007bff);
+  color: white;
+}
+
+.tf-btn.btn-fill:hover {
+  opacity: 0.9;
+}
+
+.tf-btn.btn-line:hover {
+  background: #f5f5f5;
+}
+
+.tf-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Floating Label Input Fields */
+.tf-field {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.tf-field-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.tf-field-label {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  padding: 0 4px;
+  color: #666;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.tf-field-input:focus,
+.tf-field-input:not(:placeholder-shown) {
+  border-color: var(--primary-color, #007bff);
+  outline: none;
+}
+
+.tf-field-input:focus + .tf-field-label,
+.tf-field-input:not(:placeholder-shown) + .tf-field-label {
+  top: 0;
+  font-size: 14px;
+  color: var(--primary-color, #007bff);
+}
+
+/* Spacing Utilities */
+.mb_15 { margin-bottom: 15px; }
+.mb_20 { margin-bottom: 20px; }
+.mb_30 { margin-bottom: 30px; }
+.mb_36 { margin-bottom: 36px; }
+.mt_30 { margin-top: 30px; }
+.me-2 { margin-right: 8px; }
+.ms-2 { margin-left: 8px; }
+
+/* Divider */
+.tf-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #666;
+}
+
+.tf-divider::before,
+.tf-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tf-divider span {
+  margin: 0 10px;
+  background: white;
+  padding: 0 10px;
+}
+
+/* Social Login Buttons */
+.social-login-buttons .tf-btn {
+  justify-content: center;
+  width: 100%;
+}
+
+/* Alert Messages */
+.alert {
+  padding: 12px 20px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.alert-danger {
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.alert-success {
+  background-color: #dcfce7;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+
+/* Animations */
+.animate-hover-btn {
+  transition: transform 0.2s ease;
+}
+
+.animate-hover-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Typography */
+h5 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+p {
+  color: #666;
+  line-height: 1.6;
+}
+
+.small {
+  font-size: 14px;
+}
+
+/* Links */
+.text-theme {
+  color: var(--primary-color, #007bff);
+  text-decoration: none;
+}
+
+.text-theme:hover {
+  text-decoration: underline;
+} 
