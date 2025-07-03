@@ -1,0 +1,213 @@
+/* Checkout Page */
+.tf-page-cart-wrap {
+  &.layout-2 {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
+
+.tf-page-cart-item {
+  .form-checkout {
+    .box {
+      margin-bottom: 1.5rem;
+
+      &.grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+    }
+
+    .fieldset {
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+
+      input,
+      textarea,
+      select {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid #e5e5e5;
+        border-radius: 0.25rem;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+
+        &:focus {
+          outline: none;
+          border-color: var(--primary-color);
+        }
+      }
+
+      textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+
+      .select-custom {
+        position: relative;
+
+        select {
+          appearance: none;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: right 1rem center;
+          background-size: 1rem;
+        }
+      }
+    }
+  }
+}
+
+.tf-page-cart-footer {
+  .tf-cart-footer-inner {
+    background-color: #f8f9fa;
+    padding: 2rem;
+    border-radius: 0.5rem;
+
+    .wrap-checkout-product {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 2rem;
+
+      .checkout-product-item {
+        display: flex;
+        align-items: center;
+        padding: 1rem 0;
+        border-bottom: 1px solid #e5e5e5;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        .img-product {
+          position: relative;
+          width: 80px;
+          height: 80px;
+          margin-right: 1rem;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0.25rem;
+          }
+
+          .quantity {
+            position: absolute;
+            top: -0.5rem;
+            right: -0.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+          }
+        }
+
+        .content {
+          flex: 1;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .info {
+            .name {
+              font-weight: 500;
+              margin-bottom: 0.25rem;
+            }
+
+            .variant {
+              font-size: 0.875rem;
+              color: #6c757d;
+            }
+          }
+
+          .price {
+            font-weight: 500;
+          }
+        }
+      }
+    }
+
+    .tf-checkout-total {
+      .subtotal,
+      .shipping,
+      .total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        border-bottom: 1px solid #e5e5e5;
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+
+      .total {
+        font-weight: 600;
+        font-size: 1.125rem;
+        margin-top: 1rem;
+      }
+
+      .shipping {
+        .select-custom {
+          width: 60%;
+        }
+      }
+
+      button {
+        margin-top: 2rem;
+      }
+    }
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tf-page-cart-item {
+    .form-checkout {
+      .box.grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+
+  .tf-page-cart-footer {
+    .tf-cart-footer-inner {
+      .wrap-checkout-product {
+        .checkout-product-item {
+          .content {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+
+            .price {
+              align-self: flex-end;
+            }
+          }
+        }
+      }
+
+      .tf-checkout-total {
+        .shipping {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.5rem;
+
+          .select-custom {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+} 

@@ -10,14 +10,12 @@ export const metadata = {
 
 export default function CheckoutPage() {
   return (
-    <>
-      <div className="tf-page-title">
-        <div className="container-full">
-          <div className="heading text-center">Check Out</div>
+    <section className="flat-spacing-11">
+      <div className="container">
+        <div className="tf-page-cart-wrap layout-2">
+          <Checkout />
         </div>
       </div>
-
-      <Checkout />
-    </>
+    </section>
   );
 } 

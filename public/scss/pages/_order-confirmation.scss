@@ -1,0 +1,68 @@
+// Order Confirmation Page Styles
+.order-confirmation {
+  padding: 40px 0;
+
+  .card {
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    
+    .card-body {
+      padding: 2rem;
+    }
+  }
+
+  .success-icon {
+    color: #28a745;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .order-details {
+    margin: 2rem 0;
+
+    table {
+      th, td {
+        padding: 1rem;
+        vertical-align: middle;
+      }
+
+      tfoot {
+        tr:last-child {
+          border-top: 2px solid #dee2e6;
+        }
+      }
+    }
+  }
+
+  .shipping-details {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+
+    h4 {
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin-bottom: 0.5rem;
+      color: #6c757d;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .action-buttons {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+
+    .tf-btn {
+      min-width: 180px;
+      text-align: center;
+    }
+  }
+} 

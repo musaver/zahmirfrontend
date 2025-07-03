@@ -165,17 +165,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {children}
               <Footer2 />
             </div>
+            <ShopCart />
+            <DeliveryReturn />
+            <FindSize />
+            <MobileMenu />
+            <SearchModal />
+            <ToolbarBottom />
+            <ToolbarShop />
+            <ShareModal />
           </Providers>
-          <ShopCart />
-          <DeliveryReturn />
-          <FindSize />
-          <MobileMenu />
-          <SearchModal />
-          <ToolbarBottom />
-          <ToolbarShop />
-          <ShareModal />
+          <ScrollTop />
         </Context>
-        <ScrollTop />
       </body>
     </html>
   );

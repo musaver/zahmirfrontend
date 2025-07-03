@@ -1,17 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
-import { useRouter, useParams } from "next/navigation";
-import DashboardNav from "@/components/othersPages/dashboard/DashboardNav";
+import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Currency from '@/components/common/Currency';
-
-interface OrderAddon {
-  title: string;
-  price: number;
-  quantity: number;
-}
 
 interface OrderItem {
   productName: string;
@@ -19,7 +11,11 @@ interface OrderItem {
   price: number;
   totalPrice: number;
   productImage?: string;
-  addons?: OrderAddon[];
+  addons?: Array<{
+    title: string;
+    price: number;
+    quantity: number;
+  }>;
 }
 
 interface Order {
@@ -42,38 +38,16 @@ interface Order {
   items: OrderItem[];
 }
 
-const getStatusColor = (status: string) => {
-  switch (status.toLowerCase()) {
-    case 'pending':
-      return 'warning';
-    case 'processing':
-      return 'info';
-    case 'completed':
-      return 'success';
-    case 'cancelled':
-      return 'danger';
-    default:
-      return 'secondary';
-  }
-};
-
-export default function DashboardOrderDetail() {
-  const { id } = useParams();
-  const router = useRouter();
-  const { data: session, status: authStatus } = useSession();
+export default function OrderConfirmation() {
+  const { orderId } = useParams();
   const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    if (authStatus === 'unauthenticated') {
-      router.push('/login-register');
-      return;
-    }
-
     const fetchOrder = async () => {
       try {
-        const response = await fetch(`/api/orders/${id}`);
+        const response = await fetch(`/api/orders/${orderId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch order details');
         }
@@ -87,12 +61,12 @@ export default function DashboardOrderDetail() {
       }
     };
 
-    if (id && authStatus === 'authenticated') {
+    if (orderId) {
       fetchOrder();
     }
-  }, [id, authStatus, router]);
+  }, [orderId]);
 
-  if (loading || authStatus === 'loading') {
+  if (loading) {
     return (
       <div className="container py-5">
         <div className="text-center">
@@ -110,8 +84,8 @@ export default function DashboardOrderDetail() {
         <div className="text-center">
           <h2>Error</h2>
           <p className="text-danger">{error || 'Order not found'}</p>
-          <Link href="/dashboard" className="tf-btn btn-fill">
-            Return to Dashboard
+          <Link href="/" className="tf-btn btn-fill">
+            Return to Home
           </Link>
         </div>
       </div>
@@ -119,41 +93,22 @@ export default function DashboardOrderDetail() {
   }
 
   return (
-    <>
-      <div className="page-title">
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <div className="page-title-inner">
-                <div className="breadcrumbs">
-                  <Link href="/">Home</Link>
-                  <Link href="/dashboard">Dashboard</Link>
-                  <span className="text-muted">Order Details</span>
+    <div className="order-confirmation">
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-lg-8">
+            <div className="card">
+              <div className="card-body">
+                <div className="text-center mb-4">
+                  <i className="fas fa-check-circle success-icon"></i>
+                  <h2>Order Confirmed!</h2>
+                  <p className="lead">Thank you for your purchase</p>
+                  <p className="text-muted">Order #{order.orderNumber}</p>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <section className="flat-spacing-11">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-3">
-              <DashboardNav />
-            </div>
-            <div className="col-lg-9">
-              <div className="tf-card">
-                <div className="card-header">
-                  <div className="d-flex justify-content-between align-items-center">
-                    <h4 className="card-title mb-0">Order #{order.orderNumber}</h4>
-                    <span className={`badge bg-${getStatusColor(order.status)}`}>
-                      {order.status}
-                    </span>
-                  </div>
-                </div>
-                <div className="card-body">
-                  <div className="table-responsive mb-4">
+                <div className="order-details">
+                  <h4>Order Details</h4>
+                  <div className="table-responsive">
                     <table className="table">
                       <thead>
                         <tr>
@@ -166,11 +121,15 @@ export default function DashboardOrderDetail() {
                         {order.items.map((item, index) => (
                           <tr key={index}>
                             <td>
-                              <div>{item.productName}</div>
+                              {item.productName}
                               {Array.isArray(item.addons) && item.addons.length > 0 && (
-                                <small className="text-muted d-block">
-                                  Addons: {item.addons.map(addon => `${addon.title} (x${addon.quantity})`).join(", ")}
-                                </small>
+                                <div className="small text-muted">
+                                  {item.addons.map((addon, idx) => (
+                                    <div key={idx}>
+                                      + {addon.title} x{addon.quantity}
+                                    </div>
+                                  ))}
+                                </div>
                               )}
                             </td>
                             <td>{item.quantity}</td>
@@ -202,35 +161,35 @@ export default function DashboardOrderDetail() {
                       </tfoot>
                     </table>
                   </div>
+                </div>
 
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="shipping-info mb-4">
-                        <h5>Shipping Address</h5>
-                        <p className="mb-1">
-                          {order.billingFirstName} {order.billingLastName}
-                        </p>
-                        <p className="mb-1">{order.billingAddress1}</p>
-                        <p className="mb-1">
-                          {order.billingCity}, {order.billingState} {order.billingPostalCode}
-                        </p>
-                        <p className="mb-1">{order.billingCountry}</p>
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="contact-info mb-4">
-                        <h5>Contact Information</h5>
-                        <p className="mb-1">Email: {order.email}</p>
-                        {order.phone && <p className="mb-1">Phone: {order.phone}</p>}
-                      </div>
-                    </div>
-                  </div>
+                <div className="shipping-details">
+                  <h4>Shipping Details</h4>
+                  <p>
+                    {order.billingFirstName} {order.billingLastName}
+                  </p>
+                  <p>{order.billingAddress1}</p>
+                  <p>
+                    {order.billingCity}, {order.billingState} {order.billingPostalCode}
+                  </p>
+                  <p>{order.billingCountry}</p>
+                  <p>Email: {order.email}</p>
+                  {order.phone && <p>Phone: {order.phone}</p>}
+                </div>
+
+                <div className="action-buttons">
+                  <Link href="/" className="tf-btn btn-fill">
+                    Continue Shopping
+                  </Link>
+                  <Link href="/orders" className="tf-btn btn-outline">
+                    View All Orders
+                  </Link>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </div>
   );
 } 

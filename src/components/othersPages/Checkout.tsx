@@ -12,12 +12,15 @@ import PriceNumber from "@/components/common/PriceNumber";
 interface ShippingMethod {
   id: string;
   name: string;
-  cost: number;
+  code: string;
+  description: string;
+  price: number;
+  estimatedDays: number;
 }
 
 export default function Checkout() {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -25,18 +28,26 @@ export default function Checkout() {
   const [selectedShippingMethod, setSelectedShippingMethod] = useState<string>("");
   const [shippingCost, setShippingCost] = useState(0);
 
+  // Redirect if not authenticated
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      const returnUrl = encodeURIComponent('/checkout');
+      router.push(`/login-register?redirect=${returnUrl}`);
+    }
+  }, [status, router]);
+
   // Form fields
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    address: "",
-    city: "",
-    state: "",
-    postalCode: "",
-    country: "",
-    notes: ""
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    address: '',
+    city: '',
+    state: '',
+    country: '',
+    postalCode: '',
+    notes: '',
   });
 
   // Update cart when localStorage changes
@@ -56,12 +67,17 @@ export default function Checkout() {
     const fetchShippingMethods = async () => {
       try {
         const response = await fetch('/api/shipping-methods');
-        if (!response.ok) throw new Error('Failed to fetch shipping methods');
-        const data = await response.json();
-        setShippingMethods(data);
-      } catch (err) {
-        console.error('Error fetching shipping methods:', err);
-        setError('Failed to load shipping methods');
+        if (response.ok) {
+          const data = await response.json();
+          setShippingMethods(data.methods);
+          // Select the first method by default
+          if (data.methods.length > 0) {
+            setSelectedShippingMethod(data.methods[0].id);
+            setShippingCost(data.methods[0].price);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching shipping methods:', error);
       }
     };
 
@@ -72,31 +88,36 @@ export default function Checkout() {
   useEffect(() => {
     // Update shipping cost when shipping method changes
     const method = shippingMethods.find(m => m.id === selectedShippingMethod);
-    setShippingCost(method?.cost || 0);
+    setShippingCost(method?.price || 0);
   }, [selectedShippingMethod, shippingMethods]);
 
   // Auto-fill user data
   useEffect(() => {
-    if (session?.user) {
-      fetch('/api/users/profile')
-        .then(res => res.json())
-        .then(data => {
-          if (data.user) {
-            setFormData({
-              firstName: data.user.firstName || "",
-              lastName: data.user.lastName || "",
-              email: session.user.email || "",
-              phone: data.user.phone || "",
-              address: data.user.address || "",
-              city: data.user.city || "",
-              state: data.user.state || "",
-              postalCode: data.user.postalCode || "",
-              country: data.user.country || "",
-              notes: ""
-            });
-          }
-        })
-        .catch(err => console.error('Error fetching user data:', err));
+    const fetchUserProfile = async () => {
+      try {
+        const response = await fetch('/api/users/profile');
+        if (response.ok) {
+          const data = await response.json();
+          setFormData({
+            firstName: data.user.firstName || '',
+            lastName: data.user.lastName || '',
+            email: data.user.email || '',
+            phone: data.user.phone || '',
+            address: data.user.address || '',
+            city: data.user.city || '',
+            state: data.user.state || '',
+            country: data.user.country || '',
+            postalCode: data.user.postalCode || '',
+            notes: '',
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+      }
+    };
+
+    if (session?.user?.id) {
+      fetchUserProfile();
     }
   }, [session]);
 
@@ -109,13 +130,20 @@ export default function Checkout() {
   };
 
   const handleShippingMethodChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedShippingMethod(e.target.value);
+    const methodId = e.target.value;
+    const method = shippingMethods.find(m => m.id === methodId);
+    if (method) {
+      setSelectedShippingMethod(methodId);
+      setShippingCost(method.price);
+    }
   };
 
   const calculateSubtotal = () => {
     return cartItems.reduce((total, item) => {
       const itemTotal = item.productPrice * item.quantity;
-      const addonsTotal = item.selectedAddons.reduce((sum, addon) => sum + (addon.price * addon.quantity), 0);
+      const addonsTotal = (item.selectedAddons || []).reduce((sum, addon) => 
+        sum + (addon.price * addon.quantity), 0
+      );
       return total + itemTotal + addonsTotal;
     }, 0);
   };
@@ -133,14 +161,32 @@ export default function Checkout() {
 
     try {
       setLoading(true);
+      console.log('Cart items before formatting:', cartItems);
+
+      const formattedItems = cartItems.map(item => ({
+        productId: item.productId,
+        productTitle: item.productTitle,
+        productPrice: item.productPrice,
+        quantity: item.quantity,
+        productImage: item.productImage,
+        selectedAddons: item.selectedAddons,
+        selectedVariations: item.selectedVariations
+      }));
+
+      console.log('Formatted items:', formattedItems);
+
       const orderData = {
         ...formData,
-        items: cartItems,
+        items: formattedItems,
         shippingMethodId: selectedShippingMethod,
         subtotal: calculateSubtotal(),
         shippingCost,
         total: calculateTotal(),
+        billingPostalCode: formData.postalCode,
+        shippingPostalCode: formData.postalCode,
       };
+
+      console.log('Submitting order data:', JSON.stringify(orderData, null, 2));
 
       const response = await fetch('/api/orders', {
         method: 'POST',
@@ -150,30 +196,50 @@ export default function Checkout() {
         body: JSON.stringify(orderData),
       });
 
+      const responseData = await response.json();
+      console.log('Server response:', {
+        status: response.status,
+        statusText: response.statusText,
+        data: responseData
+      });
+
       if (!response.ok) {
-        throw new Error('Failed to create order');
+        throw new Error(responseData?.error || 'Failed to create order');
       }
 
-      const { orderId } = await response.json();
+      const { orderId } = responseData;
       clearCart();
       router.push(`/order-confirmation/${orderId}`);
     } catch (err) {
       console.error('Error creating order:', err);
-      setError('Failed to create order. Please try again.');
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('Failed to create order. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
   };
 
+  // Show loading state while checking authentication
+  if (status === 'loading' || status === 'unauthenticated') {
+    return (
+      <div className="container py-5">
+        <div className="text-center">
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (loading) {
     return (
-      <div className="tf-section">
-        <div className="container">
-          <div className="text-center py-5">
-            <div className="spinner-border text-primary" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          </div>
+      <div className="text-center py-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
         </div>
       </div>
     );
@@ -181,24 +247,26 @@ export default function Checkout() {
 
   if (error) {
     return (
-      <div className="tf-section">
-        <div className="container">
-          <div className="alert alert-danger" role="alert">
-            {error}
-          </div>
-        </div>
+      <div className="alert alert-danger" role="alert">
+        {error}
       </div>
     );
   }
 
   if (cartItems.length === 0) {
     return (
-      <div className="tf-section">
-        <div className="container">
-          <div className="text-center py-5">
-            <h3>Your cart is empty</h3>
-            <Link href="/shop" className="tf-button">
-              Continue Shopping
+      <div className="container">
+        <div className="row align-items-center mt-5 mb-5">
+          <div className="col-12 fs-18">
+            Your shop cart is empty
+          </div>
+          <div className="col-12 mt-3">
+            <Link
+              href="/shop"
+              className="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"
+              style={{ width: "fit-content" }}
+            >
+              Explore Products!
             </Link>
           </div>
         </div>
@@ -207,206 +275,229 @@ export default function Checkout() {
   }
 
   return (
-    <div className="tf-section">
-      <div className="container">
-        <form onSubmit={handleSubmit}>
-          <div className="row">
-            {/* Billing Details */}
-            <div className="col-lg-6">
-              <div className="tf-checkout-details">
-                <h3>Billing Details</h3>
-                <div className="row g-3">
-                  <div className="col-md-6">
-                    <input
-                      type="text"
-                      name="firstName"
-                      placeholder="First Name *"
-                      required
-                      value={formData.firstName}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  <div className="col-md-6">
-                    <input
-                      type="text"
-                      name="lastName"
-                      placeholder="Last Name *"
-                      required
-                      value={formData.lastName}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  <div className="col-12">
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Email Address *"
-                      required
-                      value={formData.email}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  <div className="col-12">
-                    <input
-                      type="tel"
-                      name="phone"
-                      placeholder="Phone *"
-                      required
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  <div className="col-12">
-                    <input
-                      type="text"
-                      name="address"
-                      placeholder="Street Address *"
-                      required
-                      value={formData.address}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  <div className="col-12">
-                    <input
-                      type="text"
-                      name="city"
-                      placeholder="City *"
-                      required
-                      value={formData.city}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  <div className="col-md-6">
-                    <input
-                      type="text"
-                      name="state"
-                      placeholder="State *"
-                      required
-                      value={formData.state}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  <div className="col-md-6">
-                    <input
-                      type="text"
-                      name="postalCode"
-                      placeholder="Postal Code *"
-                      required
-                      value={formData.postalCode}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  <div className="col-12">
-                    <input
-                      type="text"
-                      name="country"
-                      placeholder="Country *"
-                      required
-                      value={formData.country}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  <div className="col-12">
-                    <textarea
-                      name="notes"
-                      placeholder="Order Notes (optional)"
-                      value={formData.notes}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
-              </div>
+    <>
+      <div className="tf-page-cart-item">
+        <h5 className="fw-5 mb_20">Billing details</h5>
+        <form onSubmit={handleSubmit} className="form-checkout">
+          <div className="box grid-2">
+            <fieldset className="fieldset">
+              <label htmlFor="firstName">First Name</label>
+              <input
+                required
+                type="text"
+                id="firstName"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleInputChange}
+              />
+            </fieldset>
+            <fieldset className="fieldset">
+              <label htmlFor="lastName">Last Name</label>
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleInputChange}
+              />
+            </fieldset>
+          </div>
+          <div className="col-12">
+            <div className="single-input-wrap">
+              <label>Address</label>
+              <input
+                type="text"
+                name="address"
+                placeholder="Enter your street address"
+                value={formData.address}
+                onChange={handleInputChange}
+                required
+              />
             </div>
-
-            {/* Order Summary */}
-            <div className="col-lg-6">
-              <div className="tf-checkout-order">
-                <h3>Your Order</h3>
-                <div className="tf-checkout-items">
-                  {cartItems.map((item, index) => (
-                    <div key={index} className="tf-checkout-item">
-                      <div className="product-info">
-                        <span className="name">{item.productTitle}</span>
-                        <span className="quantity">× {item.quantity}</span>
-                        {Object.entries(item.selectedVariations).length > 0 && (
-                          <div className="variations">
-                            {Object.entries(item.selectedVariations).map(([name, value]) => (
-                              <span key={name} className="variation">
-                                {name}: {value}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-                        {item.selectedAddons.length > 0 && (
-                          <div className="addons">
-                            {item.selectedAddons.map((addon, idx) => (
-                              <span key={idx} className="addon">
-                                {addon.title} (×{addon.quantity})
-                              </span>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                      <div className="product-price">
-                        <Currency amount={item.productPrice * item.quantity} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Shipping Method Selection */}
-                <div className="tf-checkout-shipping-method mb-4">
-                  <h4>Shipping Method</h4>
-                  <select
-                    name="shippingMethod"
-                    value={selectedShippingMethod}
-                    onChange={handleShippingMethodChange}
-                    required
-                  >
-                    <option value="">Select shipping method</option>
-                    {shippingMethods.map(method => (
-                      <option key={method.id} value={method.id}>
-                        {method.name} - <Currency amount={method.cost} />
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="tf-checkout-total">
-                  <div className="tf-checkout-subtotal">
-                    <span>Subtotal:</span>
-                    <span className="price">
-                      <Currency amount={calculateSubtotal()} />
-                    </span>
-                  </div>
-                  {shippingCost > 0 && (
-                    <div className="tf-checkout-shipping">
-                      <span>Shipping:</span>
-                      <span className="price">
-                        <Currency amount={shippingCost} />
-                      </span>
-                    </div>
-                  )}
-                  <div className="tf-checkout-final">
-                    <span>Total:</span>
-                    <span className="price">
-                      <Currency amount={calculateTotal()} />
-                    </span>
-                  </div>
-                </div>
-
-                <button
-                  type="submit"
-                  className="tf-button w-100"
-                  disabled={loading || !selectedShippingMethod}
-                >
-                  {loading ? 'Processing...' : 'Place Order'}
-                </button>
-              </div>
+          </div>
+          <div className="col-lg-6">
+            <div className="single-input-wrap">
+              <label>City</label>
+              <input
+                type="text"
+                name="city"
+                placeholder="Enter city"
+                value={formData.city}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+          </div>
+          <div className="col-lg-6">
+            <div className="single-input-wrap">
+              <label>State/Province</label>
+              <input
+                type="text"
+                name="state"
+                placeholder="Enter state/province"
+                value={formData.state}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+          </div>
+          <div className="col-lg-6">
+            <div className="single-input-wrap">
+              <label>Country</label>
+              <input
+                type="text"
+                name="country"
+                placeholder="Enter country"
+                value={formData.country}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+          </div>
+          <div className="col-lg-6">
+            <div className="single-input-wrap">
+              <label>Postal Code</label>
+              <input
+                type="text"
+                name="postalCode"
+                placeholder="Enter postal code"
+                value={formData.postalCode}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+          </div>
+          <fieldset className="box fieldset">
+            <label htmlFor="phone">Phone Number</label>
+            <input
+              required
+              type="tel"
+              id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleInputChange}
+            />
+          </fieldset>
+          <fieldset className="box fieldset">
+            <label htmlFor="email">Email</label>
+            <input
+              required
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+            />
+          </fieldset>
+          <fieldset className="box fieldset">
+            <label htmlFor="notes">Order notes (optional)</label>
+            <textarea
+              name="notes"
+              id="notes"
+              value={formData.notes}
+              onChange={handleInputChange}
+            />
+          </fieldset>
+          <div className="col-12">
+            <div className="single-input-wrap">
+              <label>Shipping Method</label>
+              <select
+                name="shippingMethod"
+                value={selectedShippingMethod}
+                onChange={handleShippingMethodChange}
+                required
+                className="form-select"
+              >
+                <option value="">Select a shipping method</option>
+                {shippingMethods.map(method => (
+                  <option key={method.id} value={method.id}>
+                    {method.name} - {method.description} (Rs. {method.price})
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         </form>
       </div>
-    </div>
+      <div className="tf-page-cart-footer">
+        <div className="tf-cart-footer-inner">
+          <h5 className="fw-5 mb_20">Your order</h5>
+          <div className="tf-page-cart-checkout widget-wrap-checkout">
+            <ul className="wrap-checkout-product">
+              {cartItems.map((item, i) => (
+                <li key={i} className="checkout-product-item">
+                  <figure className="img-product">
+                    {item.productImage ? (
+                      <Image
+                        alt={item.productTitle}
+                        src={item.productImage}
+                        width={720}
+                        height={1005}
+                      />
+                    ) : (
+                      <div className="placeholder-image">No Image</div>
+                    )}
+                    <span className="quantity">{item.quantity}</span>
+                  </figure>
+                  <div className="content">
+                    <div className="info">
+                      <p className="name">{item.productTitle}</p>
+                      {item.selectedAddons.length > 0 && (
+                        <div className="variant">
+                          {item.selectedAddons.map((addon, idx) => (
+                            <div key={idx}>
+                              {addon.title} x {addon.quantity}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                    <span className="price">
+                      <Currency amount={item.productPrice * item.quantity} />
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <div className="tf-checkout-total">
+              <div className="subtotal">
+                <span>Subtotal</span>
+                <span><Currency amount={calculateSubtotal()} /></span>
+              </div>
+              <div className="shipping">
+                <span>Shipping</span>
+                <div className="select-custom">
+                  <select
+                    required
+                    className="tf-select w-100"
+                    value={selectedShippingMethod}
+                    onChange={handleShippingMethodChange}
+                  >
+                    {shippingMethods.map((method) => (
+                      <option key={method.id} value={method.id}>
+                        {method.name} - Rs. {method.price}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="total">
+                <span>Total</span>
+                <span><Currency amount={calculateTotal()} /></span>
+              </div>
+              <button
+                type="submit"
+                className="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"
+                onClick={handleSubmit}
+                disabled={loading}
+              >
+                {loading ? 'Processing...' : 'Place Order'}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
+

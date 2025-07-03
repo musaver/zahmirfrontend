@@ -249,23 +249,16 @@ export default function ShopCart() {
               </div>
             </div>
             {cart.items.length > 0 && (
-              <div className="tf-mini-cart-footer">
-                <div className="tf-mini-cart-subtotal">
-                  <span className="label">Subtotal:</span>
-                  <span className="price fw-6">
+              <div className="tf-mini-cart-footer tf-mini-cart-bottom-wrap">
+                <div className="tf-mini-cart-subtotal tf-cart-totals-discounts">
+                  <span className="label tf-cart-total">Subtotal:</span>
+                  <span className="tf-totals-total-value fw-6">
                     <Currency amount={cart.total} showDecimals={false} />
                   </span>
                 </div>
-                <div className="tf-mini-cart-shipping-text">
-                  Shipping & taxes calculated at checkout
-                </div>
-                <div className="tf-mini-cart-buttons">
-                  <Link
-                    href="/cart"
-                    className="tf-btn btn-outline radius-3 w-100 justify-content-center mb-2"
-                  >
-                    View Cart
-                  </Link>
+                
+                <div className="tf-mini-cart-buttons mt-2">
+                  
                   <Link
                     href="/checkout"
                     className="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"
