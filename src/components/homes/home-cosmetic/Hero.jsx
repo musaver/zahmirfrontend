@@ -44,7 +44,7 @@ export default function Hero() {
             <div className="collection-item hover-img">
               <div className="collection-inner">
                 <Link
-                  href={`/shop-default`}
+                  href={`/shop`}
                   className="collection-image rounded-0 img-style"
                 >
                   <Image
@@ -56,7 +56,7 @@ export default function Hero() {
                 </Link>
                 <div className="collection-content">
                   <Link
-                    href={`/shop-default`}
+                    href={`/shop`}
                     className="tf-btn btn-light-icon animate-hover-btn btn-xl rounded-0"
                   >
                     <span>{slide.title}</span>

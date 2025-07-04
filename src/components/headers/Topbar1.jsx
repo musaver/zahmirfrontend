@@ -62,7 +62,7 @@ export default function Topbar1() {
                 <p className="top-bar-text fw-5">
                   Spring Fashion Sale{" "}
                   <Link
-                    href={`/shop-default`}
+                    href={`/shop`}
                     title="all collection"
                     className="tf-btn btn-line"
                   >

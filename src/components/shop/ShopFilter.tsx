@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 const categories = [
-  { id: 1, name: "Fashion", isActive: true, link: "/shop-default" },
+  { id: 1, name: "Fashion", isActive: true, link: "/shop" },
   { id: 2, name: "Men", isActive: false, link: "/shop-men" },
   { id: 3, name: "Women", isActive: false, link: "/shop-women" },
-  { id: 4, name: "Denim", isActive: false, link: "/shop-default" },
-  { id: 5, name: "Dress", isActive: false, link: "/shop-default" },
+  { id: 4, name: "Denim", isActive: false, link: "/shop" },
+  { id: 5, name: "Dress", isActive: false, link: "/shop" },
 ];
 
 const filterColors = [

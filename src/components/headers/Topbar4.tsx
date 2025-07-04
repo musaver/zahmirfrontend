@@ -40,7 +40,7 @@ export default function Topbar4() {
                   <p className="top-bar-text fw-5">
                     Spring Sale: Sweet Crunchy Salad.
                     <Link
-                      href={`/shop-default`}
+                      href={`/shop`}
                       title="all collection"
                       className="tf-btn btn-line"
                     >

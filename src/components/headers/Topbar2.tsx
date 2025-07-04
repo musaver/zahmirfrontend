@@ -32,7 +32,7 @@ export default function Topbar2({ bgColor = "bg_dark" }) {
                 <p className="top-bar-text fw-5 text_white">
                   Spring Fashion Sale{" "}
                   <Link
-                    href={`/shop-default`}
+                    href={`/shop`}
                     title="all collection"
                     className="tf-btn btn-line"
                   >

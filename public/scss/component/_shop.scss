@@ -48,11 +48,6 @@
     transform-origin: 0 0;
 }
 
-html:not([dir="rtl"]) .noUi-horizontal .noUi-origin {
-    left: auto;
-    right: 0;
-}
-
 .noUi-vertical .noUi-origin {
     width: 0;
 }
@@ -95,11 +90,6 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-origin {
     height: 34px;
     left: -6px;
     top: -17px;
-}
-
-html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
-    right: -17px;
-    left: auto;
 }
 
 .noUi-draggable {
@@ -184,11 +174,6 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     transform: translate(-50%, 50%);
 }
 
-.noUi-rtl .noUi-value-horizontal {
-    -webkit-transform: translate(50%, 50%);
-    transform: translate(50%, 50%);
-}
-
 .noUi-marker-horizontal.noUi-marker {
     margin-left: -1px;
     width: 2px;
@@ -214,11 +199,6 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     -webkit-transform: translate(0, -50%);
     transform: translate(0, -50%, 0);
     padding-left: 25px;
-}
-
-.noUi-rtl .noUi-value-vertical {
-    -webkit-transform: translate(0, 50%);
-    transform: translate(0, 50%);
 }
 
 .noUi-marker-vertical.noUi-marker {

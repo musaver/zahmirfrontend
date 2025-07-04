@@ -416,7 +416,7 @@ export const productsPages = [
   {
     heading: "Shop layouts",
     links: [
-      { href: "/shop-default", text: "Default" },
+      { href: "/shop", text: "Default" },
       { href: "/shop-left-sidebar", text: "Left sidebar" },
       { href: "/shop-right-sidebar", text: "Right sidebar" },
       { href: "/shop-fullwidth", text: "Fullwidth" },
@@ -809,7 +809,7 @@ export const navItems = [
         id: "sub-shop-one",
         label: "Shop layouts",
         links: [
-          { href: "/shop-default", label: "Default" },
+          { href: "/shop", label: "Default" },
           { href: "/shop-left-sidebar", label: "Left sidebar" },
           { href: "/shop-right-sidebar", label: "Right sidebar" },
           { href: "/shop-fullwidth", label: "Fullwidth" },

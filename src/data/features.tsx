@@ -205,11 +205,11 @@ export const iconBoxSlides = [
     desc: (
       <>
         With over 1,600 fun sock styles, our{" "}
-        <Link href={`/shop-default`} className="text-decoration-underline">
+        <Link href={`/shop`} className="text-decoration-underline">
           sock
         </Link>
         <br />
-        <Link href="/shop-default" className="text-decoration-underline">
+        <Link href="/shop" className="text-decoration-underline">
           selection
         </Link>{" "}
         is unmatched!

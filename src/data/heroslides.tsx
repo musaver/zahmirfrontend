@@ -54,19 +54,19 @@ export const slides2 = [
     title: "Shop Women",
   },
   {
-    href: "/shop-default",
+    href: "/shop",
     imgSrc: "/images/collections/collection-5.jpg",
     alt: "collection-3",
     title: "Shop Accessories",
   },
   {
-    href: "/shop-default",
+    href: "/shop",
     imgSrc: "/images/collections/collection-7.jpg",
     alt: "collection-4",
     title: "Fashion",
   },
   {
-    href: "/shop-default",
+    href: "/shop",
     imgSrc: "/images/collections/collection-6.jpg",
     alt: "collection-5",
     title: "Accessories",

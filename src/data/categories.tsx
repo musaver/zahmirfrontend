@@ -1364,12 +1364,12 @@ export const collectionItems5 = [
   },
 ];
 export const collectionItems6 = [
-  { title: "New Arrival", href: "/shop-default" },
-  { title: "Men", href: "/shop-default" },
-  { title: "Shoes", href: "/shop-default" },
-  { title: "Women", href: "/shop-default" },
-  { title: "Accessories", href: "/shop-default" },
-  { title: "Shoes", href: "/shop-default" },
+  { title: "New Arrival", href: "/shop" },
+  { title: "Men", href: "/shop" },
+  { title: "Shoes", href: "/shop" },
+  { title: "Women", href: "/shop" },
+  { title: "Accessories", href: "/shop" },
+  { title: "Shoes", href: "/shop" },
 ];
 
 export const collectionItems7 = [
@@ -1513,7 +1513,7 @@ export const collectionItems10 = [
   },
   {
     id: "item-2",
-    href: "/shop-default",
+    href: "/shop",
     imgSrc: "/images/collections/cls-handbag2.jpg",
     alt: "collection-img",
     imgWidth: 1000,
@@ -1522,7 +1522,7 @@ export const collectionItems10 = [
   },
   {
     id: "item-3",
-    href: "/shop-default",
+    href: "/shop",
     imgSrc: "/images/collections/cls-handbag3.jpg",
     alt: "collection-img",
     imgWidth: 1000,
@@ -1543,7 +1543,7 @@ export const collectionItems10 = [
 export const collectionItemsV5 = [
   {
     id: "item-1",
-    href: "/shop-default",
+    href: "/shop",
     imgSrc: "/images/collections/jewerly-8.jpg",
     alt: "collection-img",
     imgWidth: 600,
@@ -1552,7 +1552,7 @@ export const collectionItemsV5 = [
   },
   {
     id: "item-2",
-    href: "/shop-default",
+    href: "/shop",
     imgSrc: "/images/collections/jewerly-9.jpg",
     alt: "collection-img",
     imgWidth: 320,
@@ -1561,7 +1561,7 @@ export const collectionItemsV5 = [
   },
   {
     id: "item-3",
-    href: "/shop-default",
+    href: "/shop",
     imgSrc: "/images/collections/jewerly-10.jpg",
     alt: "collection-img",
     imgWidth: 320,
@@ -1570,7 +1570,7 @@ export const collectionItemsV5 = [
   },
   {
     id: "item-4",
-    href: "/shop-default",
+    href: "/shop",
     imgSrc: "/images/collections/jewerly-11.jpg",
     alt: "collection-img",
     imgWidth: 320,
@@ -1579,7 +1579,7 @@ export const collectionItemsV5 = [
   },
   {
     id: "item-5",
-    href: "/shop-default",
+    href: "/shop",
     imgSrc: "/images/collections/jewerly-12.jpg",
     alt: "collection-img",
     imgWidth: 320,
@@ -1588,7 +1588,7 @@ export const collectionItemsV5 = [
   },
   {
     id: "item-6",
-    href: "/shop-default",
+    href: "/shop",
     imgSrc: "/images/collections/jewerly-13.jpg",
     alt: "collection-img",
     imgWidth: 600,
@@ -1688,7 +1688,7 @@ export const collectionItems11 = [
   },
   {
     id: "item-2",
-    href: "/shop-default",
+    href: "/shop",
     imgSrc: "/images/collections/phonecase-6.jpg",
     alt: "collection-img",
     imgWidth: 600,
@@ -1698,7 +1698,7 @@ export const collectionItems11 = [
   },
   {
     id: "item-3",
-    href: "/shop-default",
+    href: "/shop",
     imgSrc: "/images/collections/phonecase-8.jpg",
     alt: "collection-img",
     imgWidth: 600,

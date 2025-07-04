@@ -235,7 +235,7 @@ export default function ShopCart() {
                           </div>
                           <div className="col-12 mt-3">
                             <Link
-                              href={`/shop-default`}
+                              href={`/shop`}
                               className="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"
                             >
                               Explore Products!

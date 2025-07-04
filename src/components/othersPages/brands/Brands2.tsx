@@ -15,7 +15,7 @@ const FilterItem = ({ className, title, brands }: { className: string; title: st
         ) : (
           brands.map((brand, index) => (
             <div className="tf-item-inner" key={index}>
-              <Link href={`/shop-default`}>
+              <Link href={`/shop`}>
                 <Image
                   alt="image"
                   src={brand.imgSrc}
@@ -23,7 +23,7 @@ const FilterItem = ({ className, title, brands }: { className: string; title: st
                   height="106"
                 />
               </Link>
-              <Link href={`/shop-default`} target={brand.target || "_self"}>
+              <Link href={`/shop`} target={brand.target || "_self"}>
                 {brand.text}
               </Link>
             </div>

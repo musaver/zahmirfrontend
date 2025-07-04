@@ -34,7 +34,7 @@ export default function Subcollections() {
                 <div className="collection-item style-2 hover-img">
                   <div className="collection-inner">
                     <Link
-                      href={`/shop-default`}
+                      href={`/shop`}
                       className="collection-image img-style"
                     >
                       <Image
@@ -48,7 +48,7 @@ export default function Subcollections() {
                     </Link>
                     <div className="collection-content">
                       <Link
-                        href={`/shop-default`}
+                        href={`/shop`}
                         className="tf-btn collection-title hover-icon fs-15"
                       >
                         <span>{slide.title}</span>

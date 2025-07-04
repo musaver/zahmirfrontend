@@ -17,7 +17,7 @@ export default function ToolbarShop() {
           <ul className="nav-ul-mb" id="wrapper-menu-navigation">
             <li className="nav-mb-item">
               <Link
-                href={`/shop-default`}
+                href={`/shop`}
                 className="tf-category-link mb-menu-link"
               >
                 <div className="image">
@@ -33,7 +33,7 @@ export default function ToolbarShop() {
             </li>
             <li className="nav-mb-item">
               <Link
-                href={`/shop-default`}
+                href={`/shop`}
                 className="tf-category-link mb-menu-link"
               >
                 <div className="image">
@@ -49,7 +49,7 @@ export default function ToolbarShop() {
             </li>
             <li className="nav-mb-item">
               <Link
-                href={`/shop-default`}
+                href={`/shop`}
                 className="tf-category-link mb-menu-link"
               >
                 <div className="image">
@@ -65,7 +65,7 @@ export default function ToolbarShop() {
             </li>
             <li className="nav-mb-item">
               <Link
-                href={`/shop-default`}
+                href={`/shop`}
                 className="tf-category-link mb-menu-link"
               >
                 <div className="image">
@@ -123,7 +123,7 @@ export default function ToolbarShop() {
                       <ul className="sub-nav-menu sub-menu-level-2">
                         <li>
                           <Link
-                            href={`/shop-default`}
+                            href={`/shop`}
                             className="tf-category-link sub-nav-link"
                           >
                             <div className="image">
@@ -139,7 +139,7 @@ export default function ToolbarShop() {
                         </li>
                         <li>
                           <Link
-                            href={`/shop-default`}
+                            href={`/shop`}
                             className="tf-category-link sub-nav-link"
                           >
                             <div className="image">
@@ -179,7 +179,7 @@ export default function ToolbarShop() {
                       <ul className="sub-nav-menu sub-menu-level-2">
                         <li>
                           <Link
-                            href={`/shop-default`}
+                            href={`/shop`}
                             className="tf-category-link sub-nav-link"
                           >
                             <div className="image">
@@ -195,7 +195,7 @@ export default function ToolbarShop() {
                         </li>
                         <li>
                           <Link
-                            href={`/shop-default`}
+                            href={`/shop`}
                             className="tf-category-link sub-nav-link"
                           >
                             <div className="image">
@@ -238,7 +238,7 @@ export default function ToolbarShop() {
                 <ul className="sub-nav-menu" id="cate-menu-navigation1">
                   <li>
                     <Link
-                      href={`/shop-default`}
+                      href={`/shop`}
                       className="tf-category-link sub-nav-link"
                     >
                       <div className="image">
@@ -254,7 +254,7 @@ export default function ToolbarShop() {
                   </li>
                   <li>
                     <Link
-                      href={`/shop-default`}
+                      href={`/shop`}
                       className="tf-category-link sub-nav-link"
                     >
                       <div className="image">
@@ -273,7 +273,7 @@ export default function ToolbarShop() {
             </li>
             <li className="nav-mb-item">
               <Link
-                href={`/shop-default`}
+                href={`/shop`}
                 className="tf-category-link mb-menu-link"
               >
                 <div className="image">
@@ -289,7 +289,7 @@ export default function ToolbarShop() {
             </li>
             <li className="nav-mb-item">
               <Link
-                href={`/shop-default`}
+                href={`/shop`}
                 className="tf-category-link mb-menu-link"
               >
                 <div className="image">
@@ -326,7 +326,7 @@ export default function ToolbarShop() {
                 <ul className="sub-nav-menu" id="cate-menu-navigation2">
                   <li>
                     <Link
-                      href={`/shop-default`}
+                      href={`/shop`}
                       className="tf-category-link sub-nav-link"
                     >
                       <div className="image">
@@ -342,7 +342,7 @@ export default function ToolbarShop() {
                   </li>
                   <li>
                     <Link
-                      href={`/shop-default`}
+                      href={`/shop`}
                       className="tf-category-link sub-nav-link"
                     >
                       <div className="image">
@@ -362,7 +362,7 @@ export default function ToolbarShop() {
           </ul>
         </div>
         <div className="mb-bottom">
-          <Link href={`/shop-default`} className="tf-btn fw-5 btn-line">
+          <Link href={`/shop`} className="tf-btn fw-5 btn-line">
             View all collection
             <i className="icon icon-arrow1-top-left" />
           </Link>
