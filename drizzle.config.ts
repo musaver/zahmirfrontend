@@ -5,10 +5,10 @@ export default {
   out: './drizzle',
   dialect: 'mysql', // ✅ FIXED: use driver not dialect
   dbCredentials: {
-    host: '109.106.254.201',
+    host: process.env.DB_HOST as string,
     port: 3306,
-    user: 'u970484384_zahmir',
-    password: 'Zl3eIrg;4$c',
-    database: 'u970484384_zahmir',
+    user: process.env.DB_USER as string,
+    password: process.env.DB_PASS as string,
+    database: process.env.DB_NAME as string,
   },
 } satisfies Config;

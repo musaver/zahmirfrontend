@@ -9,7 +9,7 @@ export default function ScrollTop() {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth", // You can use 'auto' or 'instant' as well
+      behavior: "smooth",
     });
   };
 
@@ -18,24 +18,32 @@ export default function ScrollTop() {
       document.body.scrollTop || document.documentElement.scrollTop;
     setScrolled(currentScroll);
     setShowScrollTop(window.scrollY >= window.innerHeight);
-    const totalScrollHeight =
-      document.documentElement.scrollHeight -
-      document.documentElement.clientHeight;
+    const totalScrollHeight = Math.max(
+      document.documentElement.scrollHeight - document.documentElement.clientHeight,
+      1
+    );
     setScrollHeight(totalScrollHeight);
   };
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-
+    handleScroll(); // Initial calculation
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
+  const dashOffset = (() => {
+    if (scrollHeight <= 0) return 307.919;
+    const offset = 307.919 - (scrolled / scrollHeight) * 307.919;
+    return isNaN(offset) ? 307.919 : Math.max(0, Math.min(307.919, offset));
+  })();
+
   return (
     <div
-      className={`progress-wrap ${scrolled > 150 ? "active-progress" : ""}`}
-      onClick={() => scrollToTop()}
+      className={`progress-wrap ${showScrollTop ? "active-progress" : ""}`}
+      onClick={scrollToTop}
+      style={{ display: showScrollTop ? 'block' : 'none' }}
     >
       <svg
         className="progress-circle svg-content"
@@ -47,7 +55,7 @@ export default function ScrollTop() {
           d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
           style={{
             strokeDasharray: "307.919, 307.919",
-            strokeDashoffset: 307.919 - (scrolled / scrollHeight) * 307.919,
+            strokeDashoffset: dashOffset,
           }}
         />
       </svg>

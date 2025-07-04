@@ -51,18 +51,11 @@ export default function Products2() {
                     </video>
                   </div>
                   <div className="cls-content">
-                    <div className="avatar d-none d-xl-block">
-                      <Image
-                        alt="avt"
-                        src={slide.imgSrc}
-                        width={160}
-                        height={160}
-                      />
-                    </div>
+                    
                     <div className="info">
                       <div>
                         <Link
-                          href='#'
+                          href={`/product-details/${slide.id}`}
                           className="title link text-line-clamp-1"
                         >
                           {slide.title}
@@ -71,9 +64,7 @@ export default function Products2() {
                         {/* Display price as number */}
                       </div>
                       <a
-                        href="#quick_view"
-                        data-bs-toggle="modal"
-                        className="box-icon"
+                        href={`/product-details/${slide.id}`}
                       >
                         <i className="icon icon-view" />
                       </a>

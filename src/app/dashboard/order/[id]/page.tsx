@@ -6,6 +6,7 @@ import { useRouter, useParams } from "next/navigation";
 import DashboardNav from "@/components/othersPages/dashboard/DashboardNav";
 import Link from 'next/link';
 import Currency from '@/components/common/Currency';
+import Image from 'next/image';
 
 interface OrderAddon {
   title: string;
@@ -19,6 +20,7 @@ interface OrderItem {
   price: number;
   totalPrice: number;
   productImage?: string;
+  productImages?: string[];
   addons?: OrderAddon[];
 }
 
@@ -157,6 +159,7 @@ export default function DashboardOrderDetail() {
                     <table className="table">
                       <thead>
                         <tr>
+                          <th style={{ width: '80px' }}>Image</th>
                           <th>Product</th>
                           <th>Quantity</th>
                           <th className="text-end">Price</th>
@@ -165,6 +168,19 @@ export default function DashboardOrderDetail() {
                       <tbody>
                         {order.items.map((item, index) => (
                           <tr key={index}>
+                            <td>
+                              {item.productImage && (
+                                <div style={{ width: '60px', height: '60px', position: 'relative' }}>
+                                  <Image
+                                    src={item.productImage}
+                                    alt={item.productName}
+                                    fill
+                                    style={{ objectFit: 'cover' }}
+                                    sizes="60px"
+                                  />
+                                </div>
+                              )}
+                            </td>
                             <td>
                               <div>{item.productName}</div>
                               {Array.isArray(item.addons) && item.addons.length > 0 && (
@@ -182,19 +198,19 @@ export default function DashboardOrderDetail() {
                       </tbody>
                       <tfoot>
                         <tr>
-                          <td colSpan={2} className="text-end">Subtotal:</td>
+                          <td colSpan={3} className="text-end">Subtotal:</td>
                           <td className="text-end">
                             <Currency amount={order.subtotal} showDecimals={false} />
                           </td>
                         </tr>
                         <tr>
-                          <td colSpan={2} className="text-end">Shipping:</td>
+                          <td colSpan={3} className="text-end">Shipping:</td>
                           <td className="text-end">
                             <Currency amount={order.shippingAmount} showDecimals={false} />
                           </td>
                         </tr>
                         <tr>
-                          <td colSpan={2} className="text-end fw-bold">Total:</td>
+                          <td colSpan={3} className="text-end fw-bold">Total:</td>
                           <td className="text-end fw-bold">
                             <Currency amount={order.totalAmount} showDecimals={false} />
                           </td>

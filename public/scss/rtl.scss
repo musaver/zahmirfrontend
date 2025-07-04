@@ -16,7 +16,7 @@
 }
 .rtl {
   .tf-icon-box.style-row {
-    direction: rtl;
+    direction: ltr;
   }
   #toggle-rtl {
     left: 15px;
@@ -43,11 +43,11 @@
   .collection-item-v3,
   .collection-item-v2,
   .card-product {
-    direction: rtl;
+    direction: ltr;
   }
   .tf-sw-slideshow {
     .wrap-slider {
-      direction: rtl;
+      direction: ltr;
       img {
         transform: rotateY(180deg);
       }
@@ -66,7 +66,7 @@
       margin-right: auto;
     }
     .content-left {
-      direction: rtl;
+      direction: ltr;
     }
   }
   .slider-home-2 .wrap-slider {
@@ -148,7 +148,7 @@
     }
   }
   .testimonial-item {
-    direction: rtl;
+    direction: ltr;
     .product > a {
       right: auto;
       left: 0;
@@ -258,12 +258,12 @@
 
   .collection-item-v4 {
     .collection-inner {
-      direction: rtl;
+      direction: ltr;
     }
   }
   .banner-gr-item,
   .tf-bundle-product-item {
-    direction: rtl;
+    direction: ltr;
   }
   .wrapper-thumbs-testimonial-v2 {
     .box-sw-navigation {
@@ -327,7 +327,7 @@
   }
   .blog-article-item {
     .article-content {
-      direction: rtl;
+      direction: ltr;
     }
   }
   .flat-banner-sock {
@@ -440,80 +440,6 @@
     }
     .speed-1 {
       animation: slide-har-reverse 40s linear infinite !important;
-    }
-  }
-}
-
-@media (min-width: 1150px) {
-  .rtl {
-    .widget-card-store .store-item-info {
-      padding-left: 15px;
-      padding-right: 122px;
-    }
-    .tf-ourstore-content {
-      padding-right: 93px;
-      padding-left: 20px;
-    }
-    .tf-content-left {
-      margin-right: 122px;
-      margin-left: 0;
-    }
-    .tf-content-right {
-      margin-left: 122px;
-      margin-right: 0;
-    }
-
-    #header .nav-icon .cart-lg {
-      padding-right: 15px;
-      border-left: 0;
-      border-right: 1px solid var(--line);
-    }
-
-    .tf-marquee .wrap-marquee {
-      animation: slide-har-reverse 15s linear infinite;
-    }
-    .tf-content-wrap {
-      padding-right: 0;
-      padding-left: 20px;
-    }
-    .wrapper-thumbs-testimonial {
-      .box-left {
-        padding-right: 24px;
-        padding-left: 83px;
-      }
-      .box-right {
-        padding-left: 80px;
-        padding-right: 0;
-      }
-    }
-    .tf-img-with-text {
-      &.style-5 {
-        .tf-content-wrap {
-          padding-right: 78px;
-          padding-left: 0;
-        }
-      }
-    }
-    .img-text-3 .tf-content-wrap {
-      padding: 20px 90px 20px 20px;
-    }
-  }
-}
-
-@media (min-width: 1441px) {
-  .rtl {
-    #header .nav-icon .cart-lg {
-      padding-right: 22px;
-      padding-left: 0;
-    }
-  }
-}
-
-@media only screen and (max-width: 767px) {
-  .rtl {
-    .tf-cart-item .img-box {
-      left: auto;
-      right: 0;
     }
   }
 }

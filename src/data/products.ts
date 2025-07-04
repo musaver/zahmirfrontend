@@ -5804,32 +5804,25 @@ export const products54 = [
 
 export const products55 = [
   {
-    id: 390,
-    videoSrc: "/images/video/cosmetic1.mp4",
-    imgSrc: "/images/video/avt-cosmetic1.jpg",
-    title: "SOS Daily Rescue Facial Spray",
-    price: 240,
+    id: 'impact',
+    videoSrc: "/images/video/zahmir-video-2.mp4",
+    imgSrc: "",
+    title: "Impact",
+    price: 2999,
   },  
   {
-    id: 391,
-    videoSrc: "/images/video/cosmetic2.mp4",
-    imgSrc: "/images/video/avt-cosmetic2.jpg",
-    title: "Radiant Creamy Concealer",
-    price: 640,
+    id: 'jalal',
+    videoSrc: "/images/video/zahmir-video-1.mp4",
+    imgSrc: "",
+    title: "Jalal",
+    price: 2999,
   },
   {
-    id: 392,
-    videoSrc: "/images/video/cosmetic3.mp4",
-    imgSrc: "/images/video/avt-cosmetic3.jpg",
-    title: "Drunk Elephant",
-    price: 320,
-  },
-  {
-    id: 393,
-    videoSrc: "/images/video/cosmetic4.mp4",
-    imgSrc: "/images/video/avt-cosmetic4.jpg",
-    title: "Sephora Colorful® Eyeshadow",
-    price: 180,
+    id: 'impulse',
+    videoSrc: "/images/video/zahmir-video-3.mp4",
+    imgSrc: "",
+    title: "Impulse",
+    price: 2999,
   },
 ];
 

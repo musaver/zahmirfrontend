@@ -7,7 +7,7 @@ export default function RtlToggle() {
     if (directionData && JSON.parse(directionData)?.dir == "rtl") {
       val = "ltr";
     } else {
-      val = "rtl";
+      val = "ltr";
     }
 
     localStorage.setItem("direction", JSON.stringify({ dir: val }));
