@@ -61,7 +61,7 @@ export default function Products2() {
                           {slide.title}
                         </Link>
                         <span className="price">Rs. {slide.price.toFixed(2)}</span>{" "}
-                        {/* Display price as number */}
+                        {/* Display price as number 2 */}
                       </div>
                       <a
                         href={`/product-details/${slide.id}`}
