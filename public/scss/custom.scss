@@ -1,4 +1,8 @@
 /* CSS for circular zoom pane */
+
+body, html {
+  direction: ltr !important;
+}
 .zoom-magnifier-containing .drift-zoom-pane {
   border-radius: 50%;
   width: 150px !important;
