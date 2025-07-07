@@ -78,6 +78,7 @@ interface ProductData {
   taxable: boolean;
   metaTitle?: string;
   metaDescription?: string;
+  metaKeywords?: string;
   productType: string;
   variationAttributes?: any;
   createdAt: string;
@@ -381,6 +382,107 @@ export default function ProductDetailsClient({ slug }: ProductDetailsClientProps
       }
     })();
   }, [slug]);
+
+  /* Update document metadata when product loads */
+  useEffect(() => {
+    if (product) {
+      // Update document title - Use metaTitle if available, otherwise use product name
+      const pageTitle = product.metaTitle || `${product.name} - Zahmir Perfumes`;
+      document.title = pageTitle;
+
+      // Update meta description
+      const metaDescription = product.metaDescription || ``;
+      
+      // Update or create meta description tag
+      let descriptionMeta = document.querySelector('meta[name="description"]');
+      if (!descriptionMeta) {
+        descriptionMeta = document.createElement('meta');
+        descriptionMeta.setAttribute('name', 'description');
+        document.head.appendChild(descriptionMeta);
+      }
+      descriptionMeta.setAttribute('content', metaDescription);
+
+      // Update or create meta keywords tag
+      const keywords = product.metaKeywords || ``;
+
+      let keywordsMeta = document.querySelector('meta[name="keywords"]');
+      if (!keywordsMeta) {
+        keywordsMeta = document.createElement('meta');
+        keywordsMeta.setAttribute('name', 'keywords');
+        document.head.appendChild(keywordsMeta);
+      }
+      keywordsMeta.setAttribute('content', keywords);
+
+      // Update Open Graph tags
+      const ogTitle = product.metaTitle || `${product.name} - Zahmir Perfumes`;
+      const ogDescription = metaDescription;
+      
+      // Get first product image for Open Graph
+      let ogImage = '/images/logo/logo.png';
+      if (product.images) {
+        try {
+          const productImages = typeof product.images === 'string' ? JSON.parse(product.images) : product.images;
+          if (Array.isArray(productImages) && productImages.length > 0) {
+            ogImage = productImages[0];
+          }
+        } catch (e) {
+          // Use default image if parsing fails
+        }
+      }
+
+      // Update OG title
+      let ogTitleMeta = document.querySelector('meta[property="og:title"]');
+      if (!ogTitleMeta) {
+        ogTitleMeta = document.createElement('meta');
+        ogTitleMeta.setAttribute('property', 'og:title');
+        document.head.appendChild(ogTitleMeta);
+      }
+      ogTitleMeta.setAttribute('content', ogTitle);
+
+      // Update OG description
+      let ogDescMeta = document.querySelector('meta[property="og:description"]');
+      if (!ogDescMeta) {
+        ogDescMeta = document.createElement('meta');
+        ogDescMeta.setAttribute('property', 'og:description');
+        document.head.appendChild(ogDescMeta);
+      }
+      ogDescMeta.setAttribute('content', ogDescription);
+
+      // Update OG image
+      let ogImageMeta = document.querySelector('meta[property="og:image"]');
+      if (!ogImageMeta) {
+        ogImageMeta = document.createElement('meta');
+        ogImageMeta.setAttribute('property', 'og:image');
+        document.head.appendChild(ogImageMeta);
+      }
+      ogImageMeta.setAttribute('content', ogImage);
+
+      // Update Twitter Card tags
+      let twitterTitleMeta = document.querySelector('meta[name="twitter:title"]');
+      if (!twitterTitleMeta) {
+        twitterTitleMeta = document.createElement('meta');
+        twitterTitleMeta.setAttribute('name', 'twitter:title');
+        document.head.appendChild(twitterTitleMeta);
+      }
+      twitterTitleMeta.setAttribute('content', ogTitle);
+
+      let twitterDescMeta = document.querySelector('meta[name="twitter:description"]');
+      if (!twitterDescMeta) {
+        twitterDescMeta = document.createElement('meta');
+        twitterDescMeta.setAttribute('name', 'twitter:description');
+        document.head.appendChild(twitterDescMeta);
+      }
+      twitterDescMeta.setAttribute('content', ogDescription);
+
+      let twitterImageMeta = document.querySelector('meta[name="twitter:image"]');
+      if (!twitterImageMeta) {
+        twitterImageMeta = document.createElement('meta');
+        twitterImageMeta.setAttribute('name', 'twitter:image');
+        document.head.appendChild(twitterImageMeta);
+      }
+      twitterImageMeta.setAttribute('content', ogImage);
+    }
+  }, [product]);
 
   /* Derived data (handles single- / double-encoded JSON) */
   const images             = useMemo(() => deepParseJSON(product?.images),             [product]);

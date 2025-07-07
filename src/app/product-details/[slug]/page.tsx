@@ -24,27 +24,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     
     // Generate SEO-friendly metadata
     const productName = product.name || 'Product';
-    const productDescription = product.shortDescription || product.description || `Discover ${productName} at Zahmir Perfumes. Premium quality fragrance with exceptional craftsmanship.`;
-    const productPrice = product.price ? `Starting from Rs${product.price}` : '';
-    const categoryName = product.categoryName ? ` in ${product.categoryName}` : '';
+   
     
     // Use product's meta fields if available, otherwise generate them
-    const metaTitle = product.metaTitle || `${productName} - Premium Fragrance | Zahmir Perfumes`;
-    const metaDescription = product.metaDescription || `${productDescription} ${productPrice} ${categoryName}. Free shipping available. Shop now at Zahmir Perfumes.`.trim();
+    const metaTitle = product.metaTitle || ``;
+    const metaDescription = product.metaDescription || ``;
     
     // Generate keywords from product data
-    const keywords = [
-      productName,
-      'Zahmir Perfumes',
-      'premium fragrance',
-      'luxury perfume',
-      product.categoryName,
-      ...(product.tags ? (Array.isArray(product.tags) ? product.tags : []) : []),
-      'fragrance',
-      'perfume',
-      'scent',
-      'cologne'
-    ].filter(Boolean).join(', ');
+    const keywords = product.metaKeywords || ``;
     
     // Get first product image for Open Graph
     let productImage = '/images/logo/logo.png'; // Default fallback
@@ -94,8 +81,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   } catch (error) {
     console.error('Error generating metadata:', error);
     return {
-      title: 'Product - Zahmir Perfumes',
-      description: 'Discover premium fragrances at Zahmir Perfumes.',
+      title: '',
+      description: '',
     };
   }
 }

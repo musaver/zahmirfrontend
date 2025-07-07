@@ -36,6 +36,7 @@ export async function GET(
         taxable: products.taxable,
         metaTitle: products.metaTitle,
         metaDescription: products.metaDescription,
+        metaKeywords: products.metaKeywords,
         productType: products.productType,
         variationAttributes: products.variationAttributes,
         createdAt: products.createdAt,
