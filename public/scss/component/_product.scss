@@ -10,6 +10,19 @@
   gap: 10px;
 }
 
+.tf-product-description {
+  margin-top: 30px;
+}
+.product-description-content h2 {
+  font-size: 22px;
+  line-height: 35px;
+  margin-top: 12px;
+}
+.product-description-content ul li {
+  list-style: initial;
+  margin-left: 15px;
+}
+
 .tf-product-media-thumbs {
   width: calc(14% - 10px);
   max-height: 846px;

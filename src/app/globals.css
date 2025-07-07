@@ -470,3 +470,159 @@ a:hover {
   font-size: 18px;
   line-height: 25px;
 }
+
+/* Product Description Section Styles */
+.tf-product-description {
+  margin-top: 30px;
+}
+.product-description-content h2 {
+  font-size: 22px;
+  line-height: 35px;
+  margin-top: 12px;
+}
+.product-description-content ul li {
+  list-style: initial;
+  margin-left: 15px;
+}
+.tf-product-description {
+  padding: 40px 0;
+  background: #fff;
+  border-top: 1px solid #eee;
+}
+
+.tf-product-des-content {
+  max-width: 100%;
+}
+
+.tf-product-des-content h5 {
+  color: #000;
+  font-size: 24px;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.product-description-content {
+  color: #333;
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+.product-description-content h1,
+.product-description-content h2,
+.product-description-content h3,
+.product-description-content h4,
+.product-description-content h5,
+.product-description-content h6 {
+  color: #000;
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.product-description-content h1 { font-size: 32px; }
+.product-description-content h2 { font-size: 28px; }
+.product-description-content h3 { font-size: 24px; }
+.product-description-content h4 { font-size: 20px; }
+.product-description-content h5 { font-size: 18px; }
+.product-description-content h6 { font-size: 16px; }
+
+.product-description-content p {
+  margin-bottom: 16px;
+  line-height: 1.7;
+}
+
+.product-description-content ul,
+.product-description-content ol {
+  margin-bottom: 16px;
+  padding-left: 24px;
+}
+
+.product-description-content li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+.product-description-content strong,
+.product-description-content b {
+  font-weight: 600;
+  color: #000;
+}
+
+.product-description-content em,
+.product-description-content i {
+  font-style: italic;
+}
+
+.product-description-content a {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.product-description-content a:hover {
+  text-decoration: none;
+  color: #0056b3;
+}
+
+.product-description-content blockquote {
+  border-left: 4px solid #007bff;
+  padding-left: 16px;
+  margin: 24px 0;
+  font-style: italic;
+  color: #666;
+}
+
+.product-description-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 16px 0;
+}
+
+.product-description-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.product-description-content th,
+.product-description-content td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.product-description-content th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #000;
+}
+
+.product-description-content tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .tf-product-description {
+    padding: 24px 0;
+  }
+  
+  .tf-product-des-content h5 {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+  
+  .product-description-content {
+    font-size: 15px;
+  }
+  
+  .product-description-content h1 { font-size: 28px; }
+  .product-description-content h2 { font-size: 24px; }
+  .product-description-content h3 { font-size: 20px; }
+  .product-description-content h4 { font-size: 18px; }
+  .product-description-content h5 { font-size: 16px; }
+  .product-description-content h6 { font-size: 15px; }
+}

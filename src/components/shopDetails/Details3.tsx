@@ -755,6 +755,26 @@ export default function Details3({ product }: { product: any }) {
           </div>
         </div>
       </div>
+
+      {/* Product Description Section */}
+      {product.description && (
+        <div className="tf-product-description">
+          <div className="container">
+            <div className="row">
+              <div className="col-12">
+                <div className="tf-product-des-content">
+                  <h5 className="fw-6 mb_10">Product Description</h5>
+                  <div 
+                    className="product-description-content"
+                    dangerouslySetInnerHTML={{ __html: product.description }}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <StickyItem />
     </section>
   );
