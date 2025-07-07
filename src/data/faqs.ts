@@ -1,3 +1,42 @@
+export const zahmirFaqs = [
+  {
+    title: "What is Zahmir Perfumes?",
+    content:
+      "Zahmir Perfumes is Pakistan's premier destination for affordable designer-inspired fragrances. We offer five exclusive perfumes—Vibe (inspired by David Beckham), Impact (inspired by Creed Aventus), Miraal (inspired by Chanel Chance), Impulse (inspired by Open Royal) all priced at PKR 2,999.",
+  },
+  {
+    title: "Are Zahmir Perfumes original or replicas?",
+    content:
+      "Our perfumes are designer-inspired fragrances, carefully crafted to capture the essence of iconic scents like Creed Aventus, Chanel Chance, and Baccarat Rouge 540. While not original designer perfumes, they offer high-quality, long-lasting alternatives at an affordable price of PKR 2,999.",
+  },
+  {
+    title: "What are the scent profiles of your perfumes?",
+    content:
+      "• Vibe (Inspired by David Beckham): Zesty lime, mint, and warm amber for a bold, masculine vibe.\n• Impact (Inspired by Creed Aventus): Pineapple, bergamot, and oakmoss for a powerful, elegant aroma.\n• Miraal (Inspired by Chanel Chance): Floral jasmine, rose, and patchouli for a feminine, timeless charm.\n• Impulse (Inspired by Open Royal): Woody and spicy notes with an oriental touch for a striking presence.",
+  },
+  {
+    title: "How long do Zahmir Perfumes last?",
+    content:
+      "Our designer-inspired perfumes are crafted for long-lasting performance, typically lasting 6–8 hours, depending on skin type, climate, and application. They are designed to stay vibrant in Pakistan's warm and humid conditions.",
+  },
+  {
+    title: "Are your perfumes suitable for sensitive skin?",
+    content:
+      "Yes, our perfumes are formulated to be gentle on the skin. However, we recommend doing a patch test before full application, especially for sensitive skin types.",
+  },
+  {
+    title: "How much do your perfumes cost?",
+    content:
+      "All our fragrances Vibe, Impact, Miraal, Impulse, and Sublime—are priced at PKR 2,999 per bottle, offering affordable luxury for Pakistani customers.",
+  },
+  {
+    title: "What is the size of each perfume bottle?",
+    content:
+      "Each Zahmir Perfumes bottle contains 50ml of premium fragrance. If you can confirm the exact size, we'll update this information.",
+  },
+];
+
+// Keep the existing exports for backward compatibility
 export const faqs1 = [
   {
     title: "Pellentesque habitant morbi tristique senectus et netus?",

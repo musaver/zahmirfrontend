@@ -18,19 +18,13 @@ export default function About() {
             </div>
             <div className="tf-content-wrap px-0 d-flex justify-content-center w-100">
               <div>
-                <div className="heading">Established - 1995</div>
+                <div className="heading">Our Story</div>
                 <div className="text">
-                  Ecomus was founded in 1995 by Jane Smith, a fashion lover with
-                  a <br className="d-xl-block d-none" />
-                  passion for timeless style. Jane had always been drawn to
-                  classic <br className="d-xl-block d-none" />
-                  pieces that could be worn season after season, and she
-                  believed that <br className="d-xl-block d-none" />
-                  there was a gap in the market for a store that focused solely
-                  on classic <br className="d-xl-block d-none" />
-                  women's clothing. She opened the first store in a small town
-                  in New <br className="d-xl-block d-none" />
-                  England, where it quickly became a local favorite.
+                At Zahmir Perfumes, we believe a fragrance is more than a scent—it’s a statement of style and individuality. 
+                Inspired by iconic designer perfumes, our collection is crafted in <strong>Dubai</strong>, 
+                a global hub for perfumery, ensuring exceptional quality and authenticity. 
+                From the vibrant streets of Karachi to the cultural hubs of Lahore and Islamabad, 
+                we’re here to elevate your sensory experience with fragrances that resonate with Pakistan’s dynamic spirit.
                 </div>
               </div>
             </div>
@@ -42,17 +36,12 @@ export default function About() {
           <div className="tf-grid-layout md-col-2 tf-img-with-text style-4">
             <div className="tf-content-wrap px-0 d-flex justify-content-center w-100">
               <div>
-                <div className="heading">Our mission</div>
+                <div className="heading">Our Mission</div>
                 <div className="text">
-                  Our mission is to empower people through sustainable fashion.
-                  <br className="d-xl-block d-none" />
-                  We want everyone to look and feel good, while also doing our
-                  part to <br className="d-xl-block d-none" />
-                  help the environment.We believe that fashion should be
-                  stylish, <br className="d-xl-block d-none" />
-                  affordable and accessible to everyone. Body positivity and
-                  inclusivity <br className="d-xl-block d-none" />
-                  are values that are at the heart of our brand.
+                To bring the allure of <strong>Dubai-made, designer-inspired perfumes</strong> to every corner of Pakistan, 
+                empowering you to express your unique style with confidence. 
+                Whether you’re in a bustling city like Karachi or a serene town, 
+                Zahmir Perfumes is your trusted partner for unforgettable fragrances.
                 </div>
               </div>
             </div>

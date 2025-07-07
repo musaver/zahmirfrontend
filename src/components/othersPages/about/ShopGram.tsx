@@ -9,13 +9,14 @@ export default function ShopGram() {
     <section className="flat-spacing-1">
       <div className="container">
         <div className="flat-title">
-          <span className="title">Shop Gram</span>
+          <span className="title">Join the Zahmir Experience</span>
           <p className="sub-title">
-            Inspire and let yourself be inspired, from one unique fashion to
-            another.
+          Explore our collection and discover why Zahmir Perfumes is Pakistan’s top choice for 
+          <strong> affordable luxury fragrances</strong>. <br /> Shop now and find your signature scent!
           </p>
+          <a className="tf-btn btn-line" href="/shop">Shop Our Collection</a>
         </div>
-        <div className="wrap-shop-gram">
+        <div className="wrap-shop-gram d-none">
           <Swiper
             dir="ltr"
             spaceBetween={7} // Corresponds to data-space-lg and data-space-md

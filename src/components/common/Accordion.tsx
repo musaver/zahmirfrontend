@@ -58,7 +58,7 @@ export default function Accordion({ faqs = faqs1 }: { faqs?: any[] }) {
             style={{ display: "block" }}
             ref={(el) => { answerRefs.current[index] = el; }}
           >
-            <p>{toggle.content}</p>
+            <p style={{ whiteSpace: "pre-line" }}>{toggle.content}</p>
           </div>
         </div>
       ))}

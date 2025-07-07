@@ -6,19 +6,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function Features() {
   return (
-    <section>
+    <section className="bg_grey-2">
       <div className="container">
-        <div className="bg_grey-2 radius-10 flat-wrap-iconbox">
+        <div className="flat-wrap-iconbox">
           <div className="flat-title lg">
-            <span className="title fw-5">Quality is our priority</span>
+            <span className="title fw-5">Our Signature Collection</span>
             <div>
               <p className="sub-title text_black-2">
-                Our talented stylists have put together outfits that are perfect
-                for the season.
-              </p>
-              <p className="sub-title text_black-2">
-                They've variety of ways to inspire your next fashion-forward
-                look.
+              Explore our curated range of <strong>five premium fragrances</strong>, <br />
+              each inspired by world-renowned designer perfumes:
               </p>
             </div>
           </div>
@@ -41,7 +37,7 @@ export default function Features() {
                   <SwiperSlide key={index}>
                     <div className="tf-icon-box text-center">
                       <div className="icon">
-                        <i className={box.iconClass} />
+                        <span className="sub-title" style={{fontSize: '24px', fontWeight: 'bold'}}>{box.number}</span>
                       </div>
                       <div className="content">
                         <div className="title">{box.title}</div>

@@ -173,29 +173,41 @@ export const slides = [
 export const iconBoxes3 = [
   {
     iconClass: "icon-shipping",
-    title: "Free Shipping",
-    description: "Free shipping over order Rs. 4000",
+    title: "Premium Quality at Affordable Prices",
+    description: "Get designer-inspired luxury for only PKR 2,999 per bottle.",
   },
   {
     iconClass: "icon-payment fs-22",
-    title: "Flexible Payment",
-    description: "Pay with Multiple Credit Cards",
+    title: "Long-Lasting Fragrances",
+    description: "Crafted to stay vibrant in Pakistan’s climate, ensuring all-day freshness.",
   },
   {
     iconClass: "icon-return fs-20",
-    title: "14 Day Returns",
-    description: "Within 30 days for an exchange",
+    title: "Nationwide Delivery",
+    description: "Shop online and enjoy fast delivery across Karachi, Lahore, Islamabad, and beyond.",
   },
-  {
-    iconClass: "icon-suport",
-    title: "Premium Support",
-    description: "Outstanding premium support",
-  },
+];
 
+export const iconBoxes5 = [
+  {
+    iconClass: "icon-shipping",
+    title: "Dubai-Crafted Excellence",
+    description: "Our perfumes are made in Dubai, blending traditional craftsmanship with modern luxury.",
+  },
+  {
+    iconClass: "icon-payment fs-22",
+    title: "Affordable Luxury",
+    description: "Enjoy designer-inspired scents at just PKR 2,999, making premium fragrances accessible to all.",
+  },
   {
     iconClass: "icon-return fs-20",
-    title: "14 Day Returns",
-    description: "Within 30 days for an exchange",
+    title: "Tailored for Pakistan",
+    description: "We offer nationwide delivery across Karachi, Lahore, Islamabad, and beyond, with a focus on customer satisfaction.",
+  },
+  {
+    iconClass: "icon-return fs-20",
+    title: "Long-Lasting Quality",
+    description: "Our 50ml perfumes are formulated to stay vibrant for hours, even in Pakistan’s warm weather.",
   },
 ];
 
@@ -295,28 +307,28 @@ export const recentCollectionSlides = [
 
 export const iconBoxes4 = [
   {
-    iconClass: "icon-materials",
-    title: "High-Quality Materials",
+    number: "1",
+    title: "Vibe (Inspired by David Beckham)",
     description:
-      "Crafted with precision and excellence, our activewear is meticulously engineered using premium materials to ensure unmatched comfort and durability.",
+      "A bold, masculine scent with zesty lime, mint, and warm amber notes for the confident modern man.",
   },
   {
-    iconClass: "icon-design",
-    title: "Laconic Design",
+    number: "2",
+    title: "Impact (Inspired by Creed Aventus)",
     description:
-      "Simplicity refined. Our activewear embodies the essence of minimalistic design, delivering effortless style that speaks volumes.",
+      "A powerful blend of pineapple, bergamot, and oakmoss, exuding strength and elegance.",
   },
   {
-    iconClass: "icon-sizes",
-    title: "Various Sizes",
+    number: "3",
+    title: "Miraal (Inspired by Chanel Chance)",
     description:
-      "Designed for every body and anyone, our activewear embraces diversity with a wide range of sizes and shapes, celebrating the beauty of individuality.",
+      "A playful, feminine fragrance with floral jasmine, rose, and patchouli for timeless charm.",
   },
   {
-    iconClass: "icon-design",
-    title: "Laconic Design",
+    number: "4",
+    title: "Impulse (Inspired by Open Royal)",
     description:
-      "Simplicity refined. Our activewear embodies the essence of minimalistic design, delivering effortless style that speaks volumes.",
+      "A rich, oriental scent with woody and spicy notes, perfect for making a lasting impression.",
   },
 ];
 

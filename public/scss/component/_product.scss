@@ -1248,7 +1248,7 @@
     border-radius: 10px;
     overflow: hidden;
     z-index: 20;
-    aspect-ratio: 1 / 1.4;
+    //aspect-ratio: 1 / 1.4;
     .sold-out {
       @include mixin.flex(center, center);
       z-index: 100;

@@ -7,6 +7,8 @@ import { normalizeProductImages } from "@/utils/jsonUtils";
 import Currency from "@/components/common/Currency";
 import { addToCart } from "@/utils/cart";
 import { openCartModal } from "@/utils/openCartModal";
+import { layouts } from "@/data/shop";
+import Sorting from "@/components/shop/Sorting";
 
 interface Product {
   id: string;
@@ -37,6 +39,8 @@ export default function ShopPage() {
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [gridItems, setGridItems] = useState(4);
+  const [finalSorted, setFinalSorted] = useState<Product[]>([]);
   const productsPerPage = 12;
 
   useEffect(() => {
@@ -49,6 +53,7 @@ export default function ShopPage() {
         }
         const data = await response.json();
         setProducts(data.products);
+        setFinalSorted(data.products);
         setTotalPages(Math.ceil(data.total / productsPerPage));
       } catch (err) {
         console.error('Error fetching products:', err);
@@ -79,29 +84,92 @@ export default function ShopPage() {
     }
   };
 
-  if (loading) {
+  const ProductCard = ({ product }: { product: Product }) => {
+    const images = normalizeProductImages(product.images);
+    const firstImage = images?.[0] || '/images/products/default.jpg';
+    const secondImage = images?.[1] || firstImage;
+
     return (
-      <div className="tf-section">
-        <div className="container">
-          <div className="text-center py-5">
-            <div className="spinner-border text-primary" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          </div>
+      <div className="card-product fl-item" key={product.id}>
+        <div className="card-product-wrapper">
+          <Link href={`/product-details/${product.slug}`} className="product-img">
+            <Image
+              className="lazyload img-product"
+              src={firstImage}
+              alt={product.name}
+              width={720}
+              height={1005}
+            />
+            <Image
+              className="lazyload img-hover"
+              src={secondImage}
+              alt={product.name}
+              width={720}
+              height={1005}
+            />
+          </Link>
+         
+        </div>
+        <div className="card-product-info">
+          <Link href={`/product-details/${product.slug}`} className="title link">
+            {product.name}
+          </Link>
+          <span className="price">
+            {product.comparePrice && (
+              <span className="old-price">
+                <Currency amount={product.comparePrice} />
+              </span>
+            )}
+            <Currency amount={product.price} />
+          </span>
         </div>
       </div>
+    );
+  };
+
+  if (loading) {
+    return (
+      <>
+        <div className="tf-page-title">
+          <div className="container-full">
+            <div className="heading text-center">Shop</div>
+            <p className="text-center text-2 text_black-2 mt_5">
+              Shop through our latest selection of perfumes
+            </p>
+          </div>
+        </div>
+        <section className="flat-spacing-2">
+          <div className="container">
+            <div className="text-center py-5">
+              <div className="spinner-border text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </>
     );
   }
 
   if (error) {
     return (
-      <div className="tf-section">
-        <div className="container">
-          <div className="alert alert-danger" role="alert">
-            {error}
+      <>
+        <div className="tf-page-title">
+          <div className="container-full">
+            <div className="heading text-center">Shop</div>
+            <p className="text-center text-2 text_black-2 mt_5">
+              Shop through our latest selection of perfumes
+            </p>
           </div>
         </div>
-      </div>
+        <section className="flat-spacing-2">
+          <div className="container">
+            <div className="alert alert-danger" role="alert">
+              {error}
+            </div>
+          </div>
+        </section>
+      </>
     );
   }
 
@@ -109,102 +177,87 @@ export default function ShopPage() {
     <>
       <div className="tf-page-title">
         <div className="container-full">
-          <div className="heading text-center">
-            Shop
-          </div>
+          <div className="heading text-center">Shop</div>
+          <p className="text-center text-2 text_black-2 mt_5">
+            Shop through our latest selection of perfumes
+          </p>
         </div>
       </div>
 
-      <div className="tf-section">
+      <section className="flat-spacing-2">
         <div className="container">
-          <div className="row g-4">
-            {products.map((product) => {
-              const images = normalizeProductImages(product.images);
-              const firstImage = images?.[0] || '/images/products/default.jpg';
+          
+          <div className="wrapper-control-shop">
+            <div className="meta-filter-shop" />
+            
+            {/* Products Grid */}
+            <div
+              style={{
+                width: "fit-content",
+                margin: "0  auto",
+                fontSize: "17px",
+                marginBottom: "24px",
+              }}
+            >
+              {finalSorted.length} product(s) found
+            </div>
+            
+            {gridItems == 1 ? (
+              <div className="grid-layout" data-grid="grid-list">
+                {finalSorted.map((product) => (
+                  <ProductCard product={product} key={product.id} />
+                ))}
+              </div>
+            ) : (
+              <div
+                className="grid-layout wrapper-shop"
+                data-grid={`grid-${gridItems}`}
+              >
+                {finalSorted.map((product) => (
+                  <ProductCard product={product} key={product.id} />
+                ))}
+              </div>
+            )}
 
-              return (
-                <div key={product.id} className="col-lg-3 col-md-4 col-sm-6">
-                  <div className="tf-product">
-                    <div className="image">
-                      <Link href={`/product-details/${product.slug}`}>
-                        <Image
-                          src={firstImage}
-                          alt={product.name}
-                          width={300}
-                          height={400}
-                          style={{ objectFit: "cover" }}
-                        />
-                      </Link>
-                      <div className="tf-product-buttons">
-                        <button
-                          className="tf-btn-add-to-cart"
-                          onClick={() => handleAddToCart(product)}
-                        >
-                          <i className="icon icon-cart" />
-                        </button>
-                      </div>
-                    </div>
-                    <div className="content">
-                      <h5 className="title">
-                        <Link href={`/product-details/${product.slug}`}>
-                          {product.name}
-                        </Link>
-                      </h5>
-                      <div className="price">
-                        {product.comparePrice && (
-                          <span className="old-price">
-                            <Currency amount={product.comparePrice} />
-                          </span>
-                        )}
-                        <span className={product.comparePrice ? "new-price" : ""}>
-                          <Currency amount={product.price} />
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Pagination */}
-          {totalPages > 1 && (
-            <div className="tf-pagination text-center mt-5">
-              <ul className="pagination justify-content-center">
-                <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <ul className="tf-pagination-wrap tf-pagination-list tf-pagination-btn">
+                <li className={`${currentPage === 1 ? 'disabled' : ''}`}>
                   <button
-                    className="page-link"
+                    className="pagination-link"
                     onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                    disabled={currentPage === 1}
                   >
-                    Previous
+                    <span className="icon icon-arrow-left" />
                   </button>
                 </li>
                 {[...Array(totalPages)].map((_, index) => (
                   <li
                     key={index + 1}
-                    className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}
+                    className={`${currentPage === index + 1 ? 'active' : ''}`}
                   >
                     <button
-                      className="page-link"
+                      className="pagination-link animate-hover-btn"
                       onClick={() => setCurrentPage(index + 1)}
                     >
                       {index + 1}
                     </button>
                   </li>
                 ))}
-                <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                <li className={`${currentPage === totalPages ? 'disabled' : ''}`}>
                   <button
-                    className="page-link"
+                    className="pagination-link"
                     onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                    disabled={currentPage === totalPages}
                   >
-                    Next
+                    <span className="icon icon-arrow-right" />
                   </button>
                 </li>
               </ul>
-            </div>
-          )}
+            )}
+          </div>
         </div>
-      </div>
+      </section>
     </>
   );
 } 

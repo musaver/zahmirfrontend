@@ -466,3 +466,7 @@ a:hover {
     padding: 15px;
   }
 }
+.tf-icon-box .text_black-2 {
+  font-size: 18px;
+  line-height: 25px;
+}
